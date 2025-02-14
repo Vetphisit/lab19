@@ -25,6 +25,7 @@ class Unit{
 		bool isDead();	
 };
 
+
 void Unit::create(string t){ 
 	if(t == "Hero"){
 		type = "Hero";
@@ -68,6 +69,42 @@ void Unit::newTurn(){
 /////////////////////////////////////////////////////////////////////////////////////
 //Write function members isDead(), guard(), heal(), beAttacked(), and attack() here//
 /////////////////////////////////////////////////////////////////////////////////////
+
+bool  Unit:: isDead(){
+	if(hp<=0) return true;
+	 else return false; 
+}
+
+void Unit:: guard(){
+	guard_on = true;
+
+}
+
+int Unit::beAttacked(int oppatk){
+	int damage = 0; 
+    if (!guard_on) { 
+        damage = oppatk - def; 
+        hp -= damage; 
+        return damage; 
+    } else { 
+        damage = (oppatk - def) / 3; 
+        hp -= damage; 
+        return damage; 
+    }
+}
+
+int Unit::attack(Unit &aa){
+	return aa.beAttacked(atk);
+}
+
+int Unit::heal(){
+    int hpbf = hp ;
+    int heal = rand()%21 +10 ;
+    hp += heal ;
+    if(hp>hpmax) hp = hpmax ;
+    return hp - hpbf ;
+}
+
 
 
 
